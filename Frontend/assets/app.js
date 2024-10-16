@@ -18,24 +18,47 @@ async function render(view){
 }
 
 function getAuthors(){
+    let tbody = document.querySelector('tbody');
+    tbody.innerHTML = ""
     xhr.open('GET', 'http://localhost:3000/authors')
     xhr.send();
     xhr.onreadystatechange = function(){
         if (xhr.readyState == 4 && xhr.status == 200) {
             var data = JSON.parse(xhr.response)
-            let tbody = document.querySelector('tbody');
             data.forEach((item,index) => {
                 tbody.innerHTML +=
                 `<tr>
-                <th>${index+1}</th>
-                <td>${item.name}</td>
-                <td class="text-end">${item.birth.split('T')[0]}</td>
-            </tr>`
+                    <th>${index+1}</th>
+                    <td>${item.name}</td>
+                    <td class="text-center">${item.birth.split('T')[0]}</td>
+                    <td class="text-end">
+                        <button type="button" class="btn gonb" >Módosítás</button>
+                        <button type="button" class="btn gonb" >Törlés</button>
+                    </td>
+                </tr>`
             });
-        }
-        
+        }   
     }
+}
 
+function addBook(){
+    var data = JSON.stringify({
+        name: document.querySelector("#name").value,
+        birth: document.querySelector("#birth").value
+    })
+    console.log(data)
+    xhr.open("POST", 'http://localhost:3000/authors', true)
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xhr.send(data)
+
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+            alert("Sikeres felvétel")
+            getAuthors()
+            document.querySelector("#name").value = null
+            document.querySelector("#birth").value = null
+        }
+    }
 }
 
 function getBooks(){

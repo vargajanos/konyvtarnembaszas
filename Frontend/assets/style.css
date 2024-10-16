@@ -24,7 +24,12 @@ footer{
   color: #1a2b47;
 }
 
-#addAuthorBtn{
+.gonb, .gonb:hover{
     background-color: #1a2b47;
     color: #DACBB3;
+}
+
+.adatok{
+    width: 50%;
+    text-align: center;
 }
