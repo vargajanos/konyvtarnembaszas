@@ -1,0 +1,18 @@
+body{
+    background-color: #DACBB3;
+}
+
+h1, h3{
+    font-weight: bold;
+    text-align: center;
+}
+
+footer{
+    text-align: center;
+    letter-spacing: 10px;
+}
+
+.card{
+    background-color: #978e7d;
+    color: aliceblue;
+}
