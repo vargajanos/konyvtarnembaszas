@@ -41,7 +41,7 @@ function getAuthors(){
     }
 }
 
-function addBook(){
+function addAuthor(){
     var data = JSON.stringify({
         name: document.querySelector("#name").value,
         birth: document.querySelector("#birth").value
