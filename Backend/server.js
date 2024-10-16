@@ -29,6 +29,18 @@ app.get('/books', (req,res)=>{
     })
 })
 
+//utolsó könyv
+app.get('/books2', (req,res)=>{
+    pool.query(`SELECT * FROM books ORDER BY ID DESC LIMIT 1`, (err, results)=>{
+        if (err) {
+            res.status(500).send('Hiba történt az adatbázis lekérés közben!')
+            return;
+        }
+        res.status(200).send(results);
+        return;
+    })
+})
+
 //könyv felvétel
 app.post('/books', (req, res)=>{
     if (!req.body.title || !req.body.releasedate || !req.body.ISBN) {

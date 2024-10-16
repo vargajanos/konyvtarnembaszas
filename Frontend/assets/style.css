@@ -5,12 +5,14 @@ body{
 h1, h3{
     font-weight: bold;
     text-align: center;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
     color: #1a2b47;
 }
 
 footer{
     text-align: center;
     letter-spacing: 10px;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
 
 .card{

@@ -1,5 +1,29 @@
-Könyv
+<h3 class="mb-3">Könyv</h3>
 
-<div id="cards">
+<div class="container adatok">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="cim" placeholder="Név">
+        <label for="name">Cím</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="date" class="form-control" id="release" placeholder="Születési dátum">
+        <label for="birth">Kiadási dátum</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="isbn" placeholder="Név">
+      <label for="name">ISBN</label>
+    </div>
+    <div class="form-floating mb-3">
+      <select id="select" class="form-select" aria-label="Default select example">
+        
+
+      </select>
+    </div>
+
+    
+    <button type="button" class="btn gonb" onclick="addBook()">Könyv felvétele</button>
+</div>
+
+<div id="cards" class="d-flex flex-row flex-wrap">
 
 </div>
