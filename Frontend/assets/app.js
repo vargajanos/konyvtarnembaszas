@@ -69,15 +69,15 @@ function addAuthor(){
 function getBooks() {
     
     xhr.open('GET', 'http://localhost:3000/books');
-    xhr.onload = function() {
-        if (xhr.status === 200) {
+    xhr.send();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
             const books = JSON.parse(xhr.response);
             CardsandAuthors(books);
-        } else {
-            console.error(':', xhr.statusText);
-        }
+        } 
+
     };
-    xhr.send();
+    
 }
 
 function CardsandAuthors(books) {
