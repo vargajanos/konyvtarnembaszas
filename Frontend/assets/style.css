@@ -5,6 +5,7 @@ body{
 h1, h3{
     font-weight: bold;
     text-align: center;
+    color: #1a2b47;
 }
 
 footer{
@@ -32,4 +33,17 @@ footer{
 .adatok{
     width: 50%;
     text-align: center;
+}
+
+.d-none{
+    display: none;
+}
+
+.navbar-custom{
+    background-color: #978e7d !important;
+}
+
+input{
+    background-color: #978e7d !important;    
+    color: #1a2b47;
 }
