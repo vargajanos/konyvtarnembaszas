@@ -1,14 +1,25 @@
 <div>
-    <h3>Szerzők listája</h3>
+    <h3 class="mb-3">Szerzők listája</h3>
 
-    <button type="button" id="addAuthorBtn" class="btn">Szerző felvétele</button>
+    <div class="container adatok">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="name" placeholder="Név">
+            <label for="name">Név</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="date" class="form-control" id="birth" placeholder="Születési dátum">
+            <label for="birth">Születési dátum</label>
+        </div>
+        
+        <button type="button" class="btn gonb" onclick="addBook()">Szerző felvétele</button>
+    </div>
 
     <table class="table mt-3 table-striped table-hover">
         <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Név</th>
-                <th scope="col" class="text-end">Születési dátum</th>
+                <th scope="col" class="text-center">Születési dátum</th>
                 <th scope="col" class="text-end">Műveletek</th>
             </tr>
         </thead>
