@@ -41,12 +41,12 @@ function getAuthors(){
     }
 }
 
-function addAuthor(){
+function addAuthor(){    
     var data = JSON.stringify({
         name: document.querySelector("#name").value,
         birth: document.querySelector("#birth").value
     })
-    console.log(data)
+    
     xhr.open("POST", 'http://localhost:3000/authors', true)
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xhr.send(data)
@@ -57,6 +57,11 @@ function addAuthor(){
             getAuthors()
             document.querySelector("#name").value = null
             document.querySelector("#birth").value = null
+            return
+        }
+        if(xhr.readyState == 4 && xhr.status != 200){
+            alert(xhr.response)
+            return
         }
     }
 }
@@ -100,7 +105,7 @@ function CardsandAuthors(books) {
                 <div class="card mb-3" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">${book.title}</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">${book.authors}</h6>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Szerzők: ${book.authors}</h6>
                         <p class="card-text">Kiadás dátuma: ${book.releasedate.split('T')[0]}</p>
                         <p class="card-text">Könyv ISBN-je: ${book.ISBN}</p>
                     </div>
