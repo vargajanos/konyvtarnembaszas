@@ -14,5 +14,17 @@ footer{
 
 .card{
     background-color: #978e7d;
-    color: aliceblue;
+    color: 5e77a1;
+}
+
+.table-striped>tbody>tr>td,
+.table-striped>thead>tr>th,
+.table-striped>tbody>tr>th {
+  background-color: #978e7d;
+  color: #1a2b47;
+}
+
+#addAuthorBtn{
+    background-color: #1a2b47;
+    color: #DACBB3;
 }
