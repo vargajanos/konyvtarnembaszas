@@ -1,6 +1,8 @@
 var xhr = new XMLHttpRequest();
 var authors
 var loadedAuthor
+var books
+var loadedBook
 
 render('author')
 async function render(view){
@@ -88,6 +90,30 @@ function loadEdit(id){
         document.querySelector("#editAuthor").classList.remove("d-none")
     }
 }
+function loadEditBook(id){
+    let book = books.find((item) => item.ID == id)
+    console.log(book)
+    console.log(id)
+
+    if(loadedBook == book){
+        loadedBook = null
+        document.querySelector("#cim").value = null
+        document.querySelector("#release").value = null
+        document.querySelector("#isbn").value = null
+
+        document.querySelector("#addBook").classList.remove("d-none")
+        document.querySelector("#editBook").classList.add("d-none")
+    }
+    else{
+        loadedBook = book
+        document.querySelector("#cim").value = book.title
+        document.querySelector("#release").value = book.releasedate.split('T')[0]
+        document.querySelector("#isbn").value = book.ISBN
+
+        document.querySelector("#addBook").classList.add("d-none")
+        document.querySelector("#editBook").classList.remove("d-none")
+    }
+}
 
 function editAuthor(){
     var data = JSON.stringify({
@@ -161,7 +187,7 @@ function getBooks() {
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
-                    const books = JSON.parse(xhr.response);
+                    books = JSON.parse(xhr.response);
                     resolve(books);
                 } else {
                     reject('Nem jó books:', xhr.statusText);
@@ -176,6 +202,7 @@ function getBooks() {
         .then(results => {
             const authors = results[0];
             const books = results[1];
+        
             
             select.innerHTML ="";
             select.innerHTML+= `<option selected value=""></option>`
@@ -197,9 +224,11 @@ function addBook(){
         releasedate: document.querySelector('#release').value,
         ISBN: document.querySelector('#isbn').value
     })
+    console.log(data);
     xhr.open("POST", 'http://localhost:3000/books', true)
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xhr.send(data)
+    
 
     xhr.onreadystatechange = function(){
         if(xhr.readyState == 4 && xhr.status == 200){
@@ -233,9 +262,9 @@ function szerzoAkonyvhoz(bookID, szerzoID){
         bookID: bookID,
         szerzoID: szerzoID,
     })
-    
     console.log(data)
-    xhr.open("POST", 'http://localhost:3000/book_authors', true)
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", 'http://localhost:3000/book_authors')
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xhr.send(data)
     xhr.onreadystatechange = function(){
@@ -260,7 +289,7 @@ function CardsandAuthors(books) {
                 if (xhr.status === 200 && xhr.readyState == 4) {
                     const authors = JSON.parse(xhr.response);
                     const authorNames = authors.map(adat => adat.name).join(', ');
-                    resolve({ title: item.title, releasedate: item.releasedate, ISBN: item.ISBN, authors: authorNames });
+                    resolve({ID: item.ID, title: item.title, releasedate: item.releasedate, ISBN: item.ISBN, authors: authorNames });
                 } else {
                     reject('Nem jó authors:', xhr.statusText);
                 }
@@ -271,6 +300,7 @@ function CardsandAuthors(books) {
 
     Promise.all(authorPromises).then(results => {
         results.forEach(book => {
+            
             cardContainer.innerHTML+= `
                 <div class="card m-3" style="width: 16rem;">
                     <div class="card-body">
@@ -278,7 +308,7 @@ function CardsandAuthors(books) {
                         <h6 class="card-subtitle mb-2 text-body-secondary">Szerzők: ${book.authors}</h6>
                         <p class="card-text">Kiadás dátuma: ${book.releasedate.split('T')[0]}</p>
                         <p class="card-text">Könyv ISBN-je: ${book.ISBN}</p>
-                        <button type="button" class="btn gonb" >Módosítás</button>
+                        <button type="button" class="btn gonb" onclick="loadEditBook(${book.ID})">Módosítás</button>
                         <button type="button" class="btn gonb" >Törlés</button>
                     </div>
                 </div>`;
