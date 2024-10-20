@@ -1,0 +1,36 @@
+<div>
+    <h3 class="mb-3">Könyvek listája</h3>
+
+    <div class="container adatok">
+        <div class="form-floating mb-3">
+            <select id="konyvSelect" class="form-select" aria-label="Default select example">
+              
+      
+            </select>
+          </div>
+          <div class="form-floating mb-3">
+            <select id="szerzoSelect" class="form-select" aria-label="Default select example">
+              
+      
+            </select>
+          </div>
+        
+        <button type="button" id="addValami" class="btn gonb" onclick="addValami()">Felvétel</button>
+        <button type="button" id="editValami" class="btn gonb d-none" onclick="editValami()">Módosítás</button>
+    </div>
+
+    <table class="table mt-3 table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Könyv</th>
+                <th scope="col" class="text-center">Szerző</th>
+                <th scope="col" class="text-end">Műveletek</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+</div>

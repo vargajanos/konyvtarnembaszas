@@ -227,8 +227,71 @@ app.post('/book_authors', (req, res)=>{
 
 })
 
+app.get('/book_authors', (req,res)=>{
+
+    pool.query(`SELECT book_authors.ID as ID, books.title, authors.name, bookID, authorID
+    FROM books
+    JOIN book_authors ON books.ID = book_authors.bookID
+    JOIN authors ON book_authors.authorID = authors.ID;`, (err, results)=>{
+        if (err) {
+            res.status(500).send('Hiba történt az adatbázis lekérés közben!');
+            return;
+        }
+        res.status(200).send(results);
+    })
+
+})
+
+app.patch('/book_authors/:id', (req,res)=>{
+
+    let id = req.params.id;
+
+    if (!id) {
+        res.status(203).send("Rossz azonosító");
+        return;
+    }
+
+    if (!req.body.bookID || !req.body.authorID){
+        res.status(203).send("Hiányzó adatok");
+        return;
+    }
+
+    
+    pool.query(`UPDATE book_authors SET bookID='${req.body.bookID}', authorID='${req.body.authorID}' WHERE ID='${id}'`, (err, results)=>{
+        if (err) {
+            res.status(500).send('Hiba történt az adatbázis lekérés közben!');
+            return;
+        }
+
+        res.status(200).send("Sikeres módosítás");
+    })
+
+})
 
 
+app.delete('/book_authors/:id', (req,res)=>{
+    let id = req.params.id;
+
+    if (!id) {
+        res.status(203).send("Rossz azonosító");
+        return;
+    }
+
+    pool.query(`DELETE from book_authors WHERE ID='${id}'`, (err, results)=>{
+        if (err) {
+            res.status(500).send('Hiba történt az adatbázis lekérés közben!');
+            return;
+        }
+
+        if (results.affectedRows == 0){
+            res.status(203).send('Nincs ilyen adat!');
+            return;
+          }
+
+          res.status(200).send('Sikeres törlés');
+          return;
+    })
+})
 app.listen(port, () => {
   
     console.log(`A masinéria megfigyel itten e: ${port}...`);

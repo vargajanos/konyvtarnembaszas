@@ -12,6 +12,10 @@ async function render(view){
             getBooks()
             break;
         }
+        case 'valami':{
+            getTable()
+            break;
+        }
     }
 }
 

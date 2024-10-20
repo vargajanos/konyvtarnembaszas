@@ -19,12 +19,6 @@ function getBooks() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     books = JSON.parse(xhr.response);
                     
-                    select.innerHTML = "";
-                    select.innerHTML += `<option selected value=""></option>`;
-                    
-                    authors.forEach(item => {
-                        select.innerHTML += `<option value="${item.ID}">${item.name}</option>`;
-                    });
                     
                     CardsandAuthors(books);
                 }
@@ -37,8 +31,6 @@ function getBooks() {
 
 // Könyv felvétel
 function addBook() { 
-    let szerzoID = JSON.parse(document.querySelector('#select').value); 
-
     var data = JSON.stringify({
         title: document.querySelector('#cim').value,
         releasedate: document.querySelector('#release').value,
@@ -52,7 +44,7 @@ function addBook() {
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
             getBooks();
-            felvettKonyvID(szerzoID);
+            
             document.querySelector("#cim").value = null;
             document.querySelector("#release").value = null;
             document.querySelector("#isbn").value = null;
@@ -60,39 +52,6 @@ function addBook() {
     };
 }
 
-// A felvett könyv ID visszakérése
-function felvettKonyvID(szerzoID) {
-    let bookID = ""; 
-    xhr.open("GET", "http://localhost:3000/books2", true);
-    xhr.send();
-    
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            book = JSON.parse(xhr.response);
-            bookID = book[0].ID;
-            szerzoAkonyvhoz(bookID, szerzoID);
-        }
-    };
-}
-
-// Kapcsolótábla feltöltése
-function szerzoAkonyvhoz(bookID, szerzoID) {
-    var data = JSON.stringify({
-        bookID: bookID,
-        authorID: szerzoID,
-    });
-    
-    xhr.open("POST", 'http://localhost:3000/book_authors', true);
-    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-    xhr.send(data);
-    
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            alert("Sikeres felvétel");
-            getBooks();
-        }
-    };
-}
 
 // Könyvek betöltése az oldalra
 function CardsandAuthors(books) {
