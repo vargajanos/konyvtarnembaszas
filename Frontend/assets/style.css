@@ -15,14 +15,7 @@ footer{
     font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
 
-.card{
-    background-color: #978e7d;
-    color: 5e77a1;
-}
-
-.table-striped>tbody>tr>td,
-.table-striped>thead>tr>th,
-.table-striped>tbody>tr>th {
+ {
   background-color: #978e7d;
   color: #1a2b47;
 }
@@ -41,11 +34,13 @@ footer{
     display: none;
 }
 
-.navbar-custom{
+.navbar-custom,
+select,
+input,
+.card,
+.table-striped>tbody>tr>td,
+.table-striped>thead>tr>th,
+.table-striped>tbody>tr>th{
     background-color: #978e7d !important;
-}
-
-input{
-    background-color: #978e7d !important;    
     color: #1a2b47;
 }
