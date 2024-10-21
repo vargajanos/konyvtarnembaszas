@@ -111,7 +111,7 @@ function editValami(){
         authorID: document.querySelector("#szerzoSelect").value
     })
     
-    xhr.open("PATCH", `http://localhost:3000/book_authors/${loadedValami.ID}`, true)
+    xhr.open("PATCH", `http://localhost:3000/book_authors/${loadedValami}`, true)
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xhr.send(data)
 
@@ -176,7 +176,7 @@ function loadEditValami(id){
         getFiam();
     } else {
         loadedValami = selectedItem.ID
-        
+  
         // Select boxok beállítása az aktuális értékekre
         document.querySelector('#konyvSelect').value = book.ID;  
         document.querySelector('#szerzoSelect').value = author.ID;  
